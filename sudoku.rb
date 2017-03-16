@@ -16,7 +16,7 @@ class Sudoku
     return unless @grid[row][col][:mutable]
 
     @grid[row][col][:digit] = digit
-    @grid[row][col][:state] = :correct
+    @grid[row][col][:state] = :possible
     toggle_grid_state
   end
 
@@ -43,18 +43,18 @@ class Sudoku
     digit.between?(1, 9)
   end
 
-  # Used to reset grid to a correct state before checking for conflicts.
-  def reset_grid_state_to_correct
+  # Used to reset grid to a possible state before checking for conflicts.
+  def reset_grid_state_to_possible
     @grid.each do |col|
       col.each do |cell|
-        cell[:state] = :correct if cell[:state] == :wrong
+        cell[:state] = :possible if cell[:state] == :wrong
       end
     end
   end
 
-  # Used to toggle the state of a cells that may be in conflict.
+  # Used to toggle the state of cells that may be in conflict.
   def toggle_grid_state
-    reset_grid_state_to_correct
+    reset_grid_state_to_possible
     toggle_row_and_column_states
     toggle_subgrid_states
   end

@@ -73,7 +73,7 @@ RSpec.describe "Sudoku" do
       expect(@sudoku[4, 4][:digit]).to eq(nil)
     end
 
-    context "correct digit placement" do
+    context "possible digit placement" do
       test_cases = [
         { desc: "top left group", row: 1, col: 1 },
         { desc: "top middle group", row: 2, col: 4 },
@@ -93,9 +93,9 @@ RSpec.describe "Sudoku" do
             expect(@sudoku[test_case[:row], test_case[:col]][:digit]).to eq(8)
           end
 
-          it "should have the :correct state" do
+          it "should have the :possible state" do
             @sudoku[test_case[:row], test_case[:col]] = 8
-            expect(@sudoku[test_case[:row], test_case[:col]][:state]).to eq(:correct)
+            expect(@sudoku[test_case[:row], test_case[:col]][:state]).to eq(:possible)
           end
         end
       end
@@ -172,9 +172,9 @@ RSpec.describe "Sudoku" do
             @sudoku[1, 1] = 8
           end
 
-          it "sets both cells back to the :correct state" do
-            expect(@sudoku[1, 4][:state]).to eq(:correct)
-            expect(@sudoku[1, 1][:state]).to eq(:correct)
+          it "sets both cells to the :possible state" do
+            expect(@sudoku[1, 4][:state]).to eq(:possible)
+            expect(@sudoku[1, 1][:state]).to eq(:possible)
           end
 
           it "does not affect the starting digit in conflict" do
